@@ -1,0 +1,21 @@
+version: '3.8'
+services:  
+  backend:
+    build:
+      context: ./backend/neverlate  
+    ports:      
+      - "8080:8080"
+    networks:      
+      - neverlate-network 
+  
+  
+  frontend:    
+    build:
+      context: ./frontend/neverlate
+    ports:      
+      - "3000:80"
+    networks:
+      - neverlate-network
+networks:  
+  neverlate-network:
+    driver: bridge
