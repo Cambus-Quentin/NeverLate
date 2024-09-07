@@ -23,6 +23,7 @@ public class TimeZoneMapper {
      */
     public TimeZone toEntity(TimeZoneDTO timeZoneDTO, User user) {
         TimeZone timeZone = new TimeZone();
+        timeZone.setId(timeZoneDTO.getId());
         timeZone.setName(timeZoneDTO.getName());
         timeZone.setCity(timeZoneDTO.getCity());
         timeZone.setOffset(timeZoneDTO.getOffset());
@@ -38,6 +39,7 @@ public class TimeZoneMapper {
      */
     public TimeZoneDTO toDTO(TimeZone timeZone) {
         TimeZoneDTO timeZoneDTO = new TimeZoneDTO();
+        timeZoneDTO.setId(timeZone.getId());
         timeZoneDTO.setName(timeZone.getName());
         timeZoneDTO.setCity(timeZone.getCity());
         timeZoneDTO.setOffset(timeZone.getOffset());

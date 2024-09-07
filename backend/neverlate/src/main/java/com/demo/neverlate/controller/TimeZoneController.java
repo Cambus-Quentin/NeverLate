@@ -1,5 +1,6 @@
 package com.demo.neverlate.controller;
 
+import com.demo.neverlate.config.CustomUserPrincipal;
 import com.demo.neverlate.dto.TimeZoneDTO;
 import com.demo.neverlate.model.User;
 import com.demo.neverlate.service.TimeZoneService;
@@ -8,7 +9,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,7 +32,7 @@ public class TimeZoneController {
      * @return une liste de {@link TimeZoneDTO} représentant les fuseaux horaires de l'utilisateur
      */
     @Operation(summary = "Récupérer tous les fuseaux horaires de l'utilisateur courant")
-    @GetMapping("/user/timezones")
+    @GetMapping()
     public ResponseEntity<List<TimeZoneDTO>> getUserTimeZones() {
         List<TimeZoneDTO> timeZones = timeZoneService.findAllForCurrentUser(); // Renvoie les TimeZones en DTO
         return ResponseEntity.ok(timeZones);
@@ -59,9 +59,9 @@ public class TimeZoneController {
     @Operation(summary = "Créer un nouveau fuseau horaire pour l'utilisateur courant")
     @PostMapping
     public ResponseEntity<String> createTimeZone(@Valid @RequestBody TimeZoneDTO timeZoneDTO) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User currentUser = (User) auth.getPrincipal();  // Récupère l'utilisateur authentifié
-        timeZoneService.saveTimeZone(timeZoneDTO, currentUser); // Sauvegarde le TimeZone
+        CustomUserPrincipal userPrincipal = (CustomUserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userPrincipal.getUser();
+        timeZoneService.saveTimeZone(timeZoneDTO, user); // Sauvegarde le TimeZone
         return ResponseEntity.ok("TimeZone créé avec succès");
     }
 

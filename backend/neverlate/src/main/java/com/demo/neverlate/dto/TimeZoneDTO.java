@@ -17,6 +17,11 @@ import lombok.*;
 public class TimeZoneDTO {
 
     /**
+     * L'id' du fuseau horaire.
+     */
+    private Long id;
+
+    /**
      * Le nom du fuseau horaire.
      * Ce champ ne doit pas être vide et doit comporter entre 3 et 100 caractères.
      */
@@ -26,10 +31,8 @@ public class TimeZoneDTO {
 
     /**
      * La ville associée au fuseau horaire.
-     * Ce champ ne doit pas être vide et doit comporter entre 3 et 100 caractères.
+     * Ce champ peut etre vide
      */
-    @NotEmpty(message = "La ville est obligatoire")
-    @Size(min = 3, max = 100, message = "La ville doit comporter entre 3 et 100 caractères")
     private String city;
 
     /**

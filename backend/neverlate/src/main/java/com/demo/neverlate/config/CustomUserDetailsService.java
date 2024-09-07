@@ -7,7 +7,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import com.demo.neverlate.model.Role;
 
 /**
  * Service personnalisé qui implémente {@link UserDetailsService}.
@@ -32,12 +31,6 @@ public class CustomUserDetailsService implements UserDetailsService {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
 
-        // Convertir les rôles de l'utilisateur en authorities pour Spring Security
-        return org.springframework.security.core.userdetails.User.withUsername(user.getUsername())
-                .password(user.getPassword())
-                .roles(user.getRoles().stream()
-                        .map(Role::getName)
-                        .toArray(String[]::new))
-                .build();
+        return new CustomUserPrincipal(user); // Utilise CustomUserPrincipal ici
     }
 }

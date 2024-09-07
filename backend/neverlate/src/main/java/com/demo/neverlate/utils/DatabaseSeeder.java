@@ -106,6 +106,22 @@ public class DatabaseSeeder implements CommandLineRunner {
         timeZone3.setUser(user2);
         timeZoneRepository.save(timeZone3);
 
+        TimeZone timeZone4 = TimeZone.builder()
+                .name("TEST")
+                .offset("+02:00")
+                .user(user2)
+                .city("everywhere")
+                .build();
+        timeZoneRepository.save(timeZone4);
+
+        TimeZone timeZone5 = TimeZone.builder()
+                .name("TEST2")
+                .offset("-06:00")
+                .user(user2)
+                .city("somewhere")
+                .build();
+        timeZoneRepository.save(timeZone5);
+
         System.out.println("Utilisateurs, rôles et fuseaux horaires ajoutés dans la base de données.");
     }
 }
