@@ -76,7 +76,7 @@ const CreateTimeZone = ({ classes }) => {
               required
               placeholder={i18n.t("timezoneForm.namePlaceholder")}
             />
-            {nameError && (
+            {labelError && (
               <p className="text-red-500 text-sm mt-1">
                 {i18n.t("errors.nameValidationError")}
               </p>
