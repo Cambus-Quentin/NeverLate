@@ -1,0 +1,62 @@
+{
+  "timezoneList": {
+    "title": "Time Zones",
+    "addNewTimezone": "Add a New Time Zone",
+    "currentSystemTime": "Current System Time",
+    "gmtOffset": "GMT Offset",
+    "delete": "Delete",
+    "edit": "Edit",
+    "pinned": "Pinned",
+    "notAvailable": "No time zones available"
+  },
+  "timezoneForm": {
+    "createTitle": "New Time Zone",
+    "edit": "Edit",
+    "editTitle": "Edit Time Zone",
+    "name": "Name",
+    "namePlaceholder": "Name",
+    "city": "City",
+    "cityPlaceholder": "Associated City",
+    "offset": "Time Offset (relative to GMT)",
+    "offsetPlaceholder": "+/-HH:MM",
+    "submit": "Submit",
+    "create": "Create",
+    "update": "Update",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "save": "Save"
+  },
+  "comparison": {
+    "title": "Time Zone Comparison",
+    "dateSelector": "Enter a date and time:",
+    "subtitle": "Corresponding times in other time zones:",
+    "compare": "Compare",
+    "compareFormatError": "Set a valid date to visualize comparison"
+  },
+  "authentication": {
+    "username": "Username",
+    "usernamePaceHolder": "Enter your username",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "email": "Email",
+    "login": "Login",
+    "register": "Register",
+    "loginError": "Incorrect username or password",
+    "logout": "Logout",
+    "createAccount": "Create an Account",
+    "alreadyRegistered": "Already registered? Log in",
+    "requiredField": "This field is required",
+    "passwordMismatch": "Passwords do not match",
+    "allFiledRequiredError": "Please fill in all fields",
+    "createAccountError": "Error creating the account"
+  },
+  "errors": {
+    "timezoneFetchError": "Error fetching time zones",
+    "timezoneCreateError": "Error creating the time zone",
+    "timezoneUpdateError": "Error updating the time zone",
+    "timezoneDeleteError": "Error deleting the time zone",
+    "requiredField": "This field is required",
+    "nameValidationError": "The name must be between 3 and 100 characters",
+    "offsetValidationError": "The time offset must follow the format +/-HH:MM"
+  }
+}

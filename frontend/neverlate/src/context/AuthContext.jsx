@@ -13,6 +13,10 @@ export const AuthProvider = ({ children }) => {
         }
     }, []);
 
+    const login = (userData) => {
+        setCurrentUser(userData);
+    };
+
     const logout = () => {
         AuthService.logout();
         setCurrentUser(null);

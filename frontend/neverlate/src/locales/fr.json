@@ -1,0 +1,62 @@
+{
+  "timezoneList": {
+    "title": "Fuseaux Horaires",
+    "addNewTimezone": "Ajouter un nouveau fuseau horaire",
+    "currentSystemTime": "Heure actuelle du système",
+    "gmtOffset": "Décalage GMT",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "pinned": "Épinglé",
+    "notAvailable": "Aucun fuseau horaire disponible"
+  },
+  "timezoneForm": {
+    "createTitle": "Nouveau fuseau horaire",
+    "editTitle": "Modifier le fuseau horaire",
+    "edit": "Modifier",
+    "name": "Nom",
+    "namePlaceholder": "Nom",
+    "city": "Ville",
+    "cityPlaceholder": "Ville associée",
+    "offset": "Décalage horaire (par rapport GMT)",
+    "offsetPlaceholder": "+/-HH:MM",
+    "submit": "Soumettre",
+    "create": "Créer",
+    "update": "Mettre à jour",
+    "cancel": "Annuler",
+    "delete": "Supprimer",
+    "save": "Sauvegarder"
+  },
+  "comparison": {
+    "title": "Comparaison de fuseaux horaires",
+    "dateSelector": "Saisir une date et heure :",
+    "subtitle": "Correspondances dans les autres fuseaux horaires :",
+    "compare": "Comparer",
+    "compareFormatError": "Entrer une date valide pour visualiser les comparaisons"
+  },
+  "authentication": {
+    "username": "Nom d'utilisateur",
+    "usernamePaceHolder": "Entrez votre nom d'utilisateur",
+    "password": "Mot de passe",
+    "confirmPassword": "Confirmer le mot de passe",
+    "email": "Email",
+    "login": "Connexion",
+    "register": "Créer un compte",
+    "loginError": "Nom d'utilisateur ou mot de passe incorrect",
+    "logout": "Déconnexion",
+    "createAccount": "Créer un compte",
+    "alreadyRegistered": "Déjà inscrit ? Connectez-vous",
+    "requiredField": "Ce champ est requis",
+    "passwordMismatch": "Les mots de passe ne correspondent pas",
+    "allFiledRequiredError": "Veuillez remplir tous les champs",
+    "createAccountError": "Erreur lors de la création du compte"
+  },
+  "errors": {
+    "timezoneFetchError": "Erreur lors de la récupération des fuseaux horaires",
+    "timezoneCreateError": "Erreur lors de la création du fuseau horaire",
+    "timezoneUpdateError": "Erreur lors de la mise à jour du fuseau horaire",
+    "timezoneDeleteError": "Erreur lors de la suppression du fuseau horaire",
+    "requiredField": "Ce champ est requis",
+    "nameValidationError": "Le nom doit avoir entre 3 et 100 caractères",
+    "offsetValidationError": "Le décalage horaire doit respecter le format +/-HH:MM"
+  }
+}
