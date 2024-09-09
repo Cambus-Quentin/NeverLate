@@ -27,7 +27,7 @@ public class TimeZoneDTO {
      */
     @NotEmpty(message = "Le nom est obligatoire")
     @Size(min = 3, max = 100, message = "Le nom doit comporter entre 3 et 100 caractères")
-    private String name;
+    private String label;
 
     /**
      * La ville associée au fuseau horaire.

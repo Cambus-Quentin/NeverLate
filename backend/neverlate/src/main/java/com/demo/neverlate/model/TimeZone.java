@@ -31,7 +31,7 @@ public class TimeZone {
      */
     @NonNull
     @Column(nullable = false)
-    private String name;
+    private String label;
 
     /**
      * La ville associée au fuseau horaire.
@@ -56,4 +56,6 @@ public class TimeZone {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+
+
 }

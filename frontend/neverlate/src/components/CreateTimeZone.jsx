@@ -4,20 +4,20 @@ import TimeZoneService from "../services/TimeZoneService";
 import { useTranslation } from "react-i18next";
 
 const CreateTimeZone = ({ classes }) => {
-  const [name, setName] = useState("");
+  const [label, setLabel] = useState("");
   const [city, setCity] = useState("");
   const [offset, setOffset] = useState("");
   const [error, setError] = useState(false);
-  const [nameError, setNameError] = useState(false);
+  const [labelError, setLabelError] = useState(false);
   const [offsetError, setOffsetError] = useState(false);
   const navigate = useNavigate();
   const { i18n } = useTranslation();
 
   const validateForm = () => {
-    // Format name (min: 3, max: 100)
-    const nameIncorrect = name.length < 3 || name.length > 100;
-    setNameError(nameIncorrect);
-    isValid = !nameIncorrect;
+    // Format label (min: 3, max: 100)
+    const labelIncorrect = label.length < 3 || label.length > 100;
+    setLabelError(labelIncorrect);
+    let isValid = !labelIncorrect;
 
     // Format: +/-HH:MM
     const offsetPattern = /^(?:\+|-)[0-9]{2}:[0-9]{2}$/;
@@ -32,7 +32,7 @@ const CreateTimeZone = ({ classes }) => {
     if (validateForm()) {
       try {
         await TimeZoneService.createTimeZone({
-          name,
+          label,
           city,
           offset,
         });
@@ -70,8 +70,8 @@ const CreateTimeZone = ({ classes }) => {
             </label>
             <input
               type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              value={label}
+              onChange={(e) => setLabel(e.target.value)}
               className={`w-full p-2 border ${classes.inputClass}`}
               required
               placeholder={i18n.t("timezoneForm.namePlaceholder")}

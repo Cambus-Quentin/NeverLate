@@ -110,7 +110,7 @@ public class TimeZoneService {
             throw new UnauthorizedActionException("Unauthorized to update this TimeZone");
         }
 
-        existingTimeZone.setName(updatedTimeZoneDTO.getName());
+        existingTimeZone.setLabel(updatedTimeZoneDTO.getLabel());
         existingTimeZone.setCity(updatedTimeZoneDTO.getCity());
         existingTimeZone.setOffset(updatedTimeZoneDTO.getOffset());
 

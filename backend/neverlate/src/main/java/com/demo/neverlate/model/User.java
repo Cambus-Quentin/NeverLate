@@ -3,6 +3,7 @@ package com.demo.neverlate.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -62,7 +63,7 @@ public class User {
      * Ce champ est mis à jour à chaque fois que l'utilisateur se connecte.
      */
     @Temporal(TemporalType.TIMESTAMP)
-    private Date lastLogin;
+    private LocalDateTime lastLogin;
 
     /**
      * Les rôles attribués à l'utilisateur, comme "USER" ou "ADMIN".

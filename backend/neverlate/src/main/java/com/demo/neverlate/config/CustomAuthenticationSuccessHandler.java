@@ -1,17 +1,15 @@
 package com.demo.neverlate.security;
 
-import com.demo.neverlate.model.User;
 import com.demo.neverlate.repository.UserRepository;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Date;
 
 /**
  * Gestionnaire personnalisé de succès d'authentification.
@@ -39,11 +37,8 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         String username = authentication.getName();
 
         // Récupèration de l'utilisateur par son nom d'utilisateur
-        User user = userRepository.findByUsername(username).orElseThrow(() -> new RuntimeException("User not found"));
+        userRepository.findByUsername(username).orElseThrow(() -> new RuntimeException("User not found"));
 
-        user.setLastLogin(new Date());
-        userRepository.save(user);
-
-        response.sendRedirect("/home");
+        response.sendRedirect("/");
     }
 }

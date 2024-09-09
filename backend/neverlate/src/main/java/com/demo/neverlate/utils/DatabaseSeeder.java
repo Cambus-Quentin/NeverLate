@@ -12,11 +12,11 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Set;
 
 /**
  * Classe utilisée pour peupler la base de données avec des utilisateurs, des rôles et des fuseaux horaires d'exemple lors du démarrage de l'application.
- * Elle implémente l'interface {@link CommandLineRunner} pour exécuter du code au lancement.
  */
 @Component
 public class DatabaseSeeder implements CommandLineRunner {
@@ -35,93 +35,87 @@ public class DatabaseSeeder implements CommandLineRunner {
 
     /**
      * Méthode exécutée au démarrage de l'application pour insérer des données d'exemple dans la base de données.
-     *
-     * @param args arguments de la ligne de commande
-     * @throws Exception si une erreur survient lors de l'exécution
      */
     @Override
     @Transactional
     public void run(String... args) throws Exception {
         // Créer des rôles
-        Role adminRole = new Role();
-        adminRole.setName("ADMIN");
-        roleRepository.save(adminRole);
+        Role adminRole = Role.builder().name("ADMIN").build();
+        Role userRole = Role.builder().name("USER").build();
+        roleRepository.saveAll(List.of(adminRole, userRole));
 
-        Role userRole = new Role();
-        userRole.setName("USER");
-        roleRepository.save(userRole);
+        // Créer les utilisateurs avec leurs fuseaux horaires
+        createUsersWithTimeZones(adminRole, userRole);
+    }
 
-        // Ajouter un administrateur
-        User admin = new User();
-        admin.setUsername("admin");
-        admin.setEmail("admin@example.com");
-        admin.setPassword(passwordEncoder.encode("admin"));
-        admin.setRoles(Set.of(adminRole)); // Assigner le rôle ADMIN à admin
+    private void createUsersWithTimeZones(Role adminRole, Role userRole) {
+        // Créer les utilisateurs de test
+
+        // Utilisateur 1: Admin avec un fuseau horaire
+        User admin = User.builder()
+                .username("admin")
+                .email("admin@example.com")
+                .password(passwordEncoder.encode("admin"))
+                .roles(Set.of(adminRole))
+                .build();
         userRepository.save(admin);
 
-        // Ajouter un utilisateur classique
-        User user = new User();
-        user.setUsername("user");
-        user.setEmail("user@example.com");
-        user.setPassword(passwordEncoder.encode("user"));
-        user.setRoles(Set.of(userRole)); // Assigner le rôle USER à user
+        timeZoneRepository.save(TimeZone.builder().label("UTC").city("London").offset("+00:00").user(admin).build());
+
+        // Utilisateur 2: Utilisateur classique avec deux fuseaux horaires
+        User user = User.builder()
+                .username("user")
+                .email("user@example.com")
+                .password(passwordEncoder.encode("user"))
+                .roles(Set.of(userRole))
+                .build();
         userRepository.save(user);
 
-        // Ajouter un utilisateur avec rôle USER (john_doe)
-        User user1 = new User();
-        user1.setUsername("john_doe");
-        user1.setEmail("john.doe@example.com");
-        user1.setPassword(passwordEncoder.encode("password123"));
-        user1.setRoles(Set.of(userRole)); // Assigner le rôle USER à john_doe
-        userRepository.save(user1);
+        timeZoneRepository.save(TimeZone.builder().label("Eastern Time").city("New York").offset("-05:00").user(user).build());
+        timeZoneRepository.save(TimeZone.builder().label("Central European Time").city("Paris").offset("+01:00").user(user).build());
 
-        // Ajouter un utilisateur avec rôles ADMIN et USER (jane_doe)
-        User user2 = new User();
-        user2.setUsername("jane_doe");
-        user2.setEmail("jane.doe@example.com");
-        user2.setPassword(passwordEncoder.encode("password456"));
-        user2.setRoles(Set.of(adminRole, userRole)); // Assigner les rôles ADMIN et USER à jane_doe
-        userRepository.save(user2);
-
-        // Ajouter des fuseaux horaires pour john_doe
-        TimeZone timeZone1 = new TimeZone();
-        timeZone1.setName("Pacific Time");
-        timeZone1.setCity("Los Angeles");
-        timeZone1.setOffset("-08:00");
-        timeZone1.setUser(user1);
-        timeZoneRepository.save(timeZone1);
-
-        TimeZone timeZone2 = new TimeZone();
-        timeZone2.setName("Eastern Time");
-        timeZone2.setCity("New York");
-        timeZone2.setOffset("-05:00");
-        timeZone2.setUser(user1);
-        timeZoneRepository.save(timeZone2);
-
-        // Ajouter un fuseau horaire pour jane_doe
-        TimeZone timeZone3 = new TimeZone();
-        timeZone3.setName("GMT");
-        timeZone3.setCity("London");
-        timeZone3.setOffset("+00:00");
-        timeZone3.setUser(user2);
-        timeZoneRepository.save(timeZone3);
-
-        TimeZone timeZone4 = TimeZone.builder()
-                .name("TEST")
-                .offset("+02:00")
-                .user(user2)
-                .city("everywhere")
+        // Utilisateur 3
+        User user3 = User.builder()
+                .username("john_doe")
+                .email("john.doe@example.com")
+                .password(passwordEncoder.encode("password123"))
+                .roles(Set.of(userRole))
                 .build();
-        timeZoneRepository.save(timeZone4);
+        userRepository.save(user3);
 
-        TimeZone timeZone5 = TimeZone.builder()
-                .name("TEST2")
-                .offset("-06:00")
-                .user(user2)
-                .city("somewhere")
+        timeZoneRepository.save(TimeZone.builder().label("Pacific Time").city("Los Angeles").offset("-08:00").user(user3).build());
+        timeZoneRepository.save(TimeZone.builder().label("Mountain Time").city("Denver").offset("-07:00").user(user3).build());
+        timeZoneRepository.save(TimeZone.builder().label("Eastern Time").city("New York").offset("-05:00").user(user3).build());
+
+        // Utilisateur 4
+        User user4 = User.builder()
+                .username("jane_doe")
+                .email("jane.doe@example.com")
+                .password(passwordEncoder.encode("password456"))
+                .roles(Set.of(adminRole, userRole))
                 .build();
-        timeZoneRepository.save(timeZone5);
+        userRepository.save(user4);
+
+        timeZoneRepository.save(TimeZone.builder().label("Greenwich Mean Time").city("London").offset("+00:00").user(user4).build());
+        timeZoneRepository.save(TimeZone.builder().label("Central Standard Time").city("Chicago").offset("-06:00").user(user4).build());
+        timeZoneRepository.save(TimeZone.builder().label("China Standard Time").city("Beijing").offset("+08:00").user(user4).build());
+
+        // Utilisateur 5 à 10 : Ajout de plus d'utilisateurs avec des fuseaux horaires différents
+        for (int i = 5; i <= 10; i++) {
+            User userX = User.builder()
+                    .username("user" + i)
+                    .email("user" + i + "@example.com")
+                    .password(passwordEncoder.encode("password" + i))
+                    .roles(Set.of(userRole))
+                    .build();
+            userRepository.save(userX);
+
+            timeZoneRepository.save(TimeZone.builder().label("UTC").city("London").offset("+00:00").user(userX).build());
+            timeZoneRepository.save(TimeZone.builder().label("Central European Time").city("Berlin").offset("+01:00").user(userX).build());
+            timeZoneRepository.save(TimeZone.builder().label("Eastern Time").city("New York").offset("-05:00").user(userX).build());
+        }
 
         System.out.println("Utilisateurs, rôles et fuseaux horaires ajoutés dans la base de données.");
     }
+
 }

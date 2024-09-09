@@ -9,8 +9,8 @@ i18n
   .use(initReactI18next)
   .init({
     resources: {
-      FR: { translation: en },
-      EN: { translation: fr },
+      FR: { translation: fr },
+      EN: { translation: en },
     },
     fallbackLng: "FR",
     interpolation: { escapeValue: false },

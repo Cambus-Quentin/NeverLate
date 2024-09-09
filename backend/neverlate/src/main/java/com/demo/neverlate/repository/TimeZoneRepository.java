@@ -26,9 +26,9 @@ public interface TimeZoneRepository extends JpaRepository<TimeZone, Long> {
     /**
      * Trouve un fuseau horaire par son nom et l'utilisateur associé.
      *
-     * @param name le nom du fuseau horaire
+     * @param label le nom du fuseau horaire
      * @param user l'utilisateur associé à ce fuseau horaire
      * @return un objet {@link Optional} contenant le fuseau horaire s'il existe
      */
-    Optional<TimeZone> findByNameAndUser(String name, User user);
+    Optional<TimeZone> findByLabelAndUser(String label, User user);
 }

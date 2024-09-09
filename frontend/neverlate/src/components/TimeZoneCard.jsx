@@ -23,7 +23,7 @@ const TimeZoneCard = ({
               className="text-xl sm:text-2xl font-semibold break-words text-left"
               style={{ wordWrap: "break-word", width: "135px" }}
             >
-              {timezone.name}
+              {timezone.label}
             </p>
           </div>
 

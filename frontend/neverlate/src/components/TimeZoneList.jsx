@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useContext } from "react";
-
 import { useNavigate } from "react-router-dom";
 import TimeZoneCard from "./TimeZoneCard";
 import {
@@ -18,7 +17,7 @@ const TimeZoneList = ({ classes }) => {
   const [pinId, setPinId] = useState(null);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-  const { language, setLanguage } = useContext(LanguageContext);
+  const { language } = useContext(LanguageContext);
   const { i18n } = useTranslation();
 
   // Fonction pour récupérer la liste des fuseaux horaires depuis l'API
@@ -38,31 +37,36 @@ const TimeZoneList = ({ classes }) => {
 
   useEffect(() => {
     const updateTimeForAllTimeZones = () => {
-      setSystemTime(new Date());
+      console.log(language)
+      setSystemTime(new Date()); // Mettre à jour l'heure système locale
 
       const updatedTimes = {};
-      const gmtBase = getCurrentGMTTime(); // Utiliser l'heure GMT actuelle
+      const gmtBase = getCurrentGMTTime(); // Obtenir l'heure GMT actuelle
 
       timezones.forEach((timezone) => {
-        const localTime = convertToLocalTime(gmtBase, timezone.offset); // Utiliser la fonction de conversion
+        // Calcul de l'heure locale pour chaque timezone
+        const localTime = convertToLocalTime(gmtBase, timezone.offset);
+
+        // Appliquer le format en fonction de la langue
         updatedTimes[timezone.id] =
-          language === "fr"
+          language === "FR"
             ? localTime.toLocaleTimeString("fr-FR")
             : localTime.toLocaleString("en-GB", {
               hour12: true,
               timeStyle: "short",
             });
       });
-      setCurrentTimes(updatedTimes);
+      setCurrentTimes(updatedTimes); // Mettre à jour l'état des heures locales
     };
 
-    if (timezones && timezones.length > 0) {
+    if (timezones.length > 0) {
       updateTimeForAllTimeZones();
     }
 
+
     const intervalId = setInterval(updateTimeForAllTimeZones, 1000);
 
-    return () => clearInterval(intervalId);
+    return () => clearInterval(intervalId); // Nettoyer l'intervalle à la destruction du composant
   }, [timezones, language]);
 
   // Fonction pour supprimer un fuseau horaire
@@ -75,7 +79,7 @@ const TimeZoneList = ({ classes }) => {
     }
   };
 
-  // Fonction pour marquer un fuseau horaire comme épingler
+  // Fonction pour marquer un fuseau horaire comme épinglé
   const handlePin = (id) => {
     setPinId(id);
   };
@@ -87,29 +91,24 @@ const TimeZoneList = ({ classes }) => {
   });
 
   return (
-    <div
-      className={`flex flex-col items-center ${classes.bgInvertClass} ${classes.textInvertClass} min-h-screen`}
-    >
+    <div className={`flex flex-col items-center ${classes.bgInvertClass} ${classes.textInvertClass} min-h-screen`}>
       <div className="flex flex-col items-center space-y-2">
-
+        {/* Affichage de la date et l'heure du système local */}
         <span className="text-lg md:text-xl lg:text-2xl font-medium">
-          {systemTime.toLocaleDateString("fr-FR", {
+          {systemTime.toLocaleDateString(language === "fr" ? "fr-FR" : "en-GB", {
             day: "2-digit",
             month: "2-digit",
             year: "numeric",
           })}
         </span>
 
-        <span
-          className="text-4xl md:text-6xl lg:text-8xl font-bold leading-none"
-          style={{ whiteSpace: "nowrap" }} // Prevents wrapping into two lines
-        >
+        <span className="text-4xl md:text-6xl lg:text-8xl font-bold leading-none" style={{ whiteSpace: "nowrap" }}>
           {language === "FR"
             ? systemTime.toLocaleTimeString("fr-FR")
             : systemTime.toLocaleString("en-GB", {
               hour12: true,
               timeStyle: "short",
-            })}
+            })  }
         </span>
 
         <span className="text-lg md:text-xl lg:text-2xl font-medium">
@@ -147,4 +146,5 @@ const TimeZoneList = ({ classes }) => {
     </div>
   );
 };
+
 export default TimeZoneList;

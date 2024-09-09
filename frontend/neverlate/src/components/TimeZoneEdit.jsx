@@ -10,7 +10,7 @@ const TimeZoneEdit = ({ classes }) => {
   const [timezone, setTimezone] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [error, setError] = useState(null);
-  const [nameError, setNameError] = useState(false);
+  const [labelError, setLabelError] = useState(false);
   const [offsetError, setOffsetError] = useState(false);
   const { i18n } = useTranslation();
 
@@ -54,10 +54,10 @@ const TimeZoneEdit = ({ classes }) => {
 
   const validateForm = () => {
     // format (min: 3, max: 100)
-    const nameIncorrect =
-      timezone.name.length < 3 || timezone.name.length > 100;
-    let isValid = !nameIncorrect;
-    setNameError(nameIncorrect);
+    const labelIncorrect =
+      timezone.label.length < 3 || timezone.label.length > 100;
+    let isValid = !labelIncorrect;
+    setLabelError(labelIncorrect);
 
     // format: +/-HH:MM
     const offsetPattern = /^(?:\+|-)[0-9]{2}:[0-9]{2}$/;
@@ -95,15 +95,15 @@ const TimeZoneEdit = ({ classes }) => {
                 </label>
                 <input
                   type="text"
-                  value={timezone.name}
+                  value={timezone.label}
                   onChange={(e) =>
-                    setTimezone({ ...timezone, name: e.target.value })
+                    setTimezone({ ...timezone, label: e.target.value })
                   }
                   className={`w-full p-2 border ${classes.inputClass}`}
                   disabled={!isEditing}
                 />
               </div>
-              {nameError && (
+              {labelError && (
                 <p className="text-red-500 text-center mb-4">
                   {i18n.t("errors.nameValidationError")}
                 </p>

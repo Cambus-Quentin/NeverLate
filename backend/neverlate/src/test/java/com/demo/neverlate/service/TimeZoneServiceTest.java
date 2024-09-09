@@ -64,7 +64,7 @@ class TimeZoneServiceTest {
 
         // Créer un TimeZone existant avec @Builder
         existingTimeZone = TimeZone.builder()
-                .name("Pacific Time")
+                .label("Pacific Time")
                 .city("Los Angeles")
                 .offset("-08:00")
                 .user(mockUser)
@@ -76,13 +76,13 @@ class TimeZoneServiceTest {
     void saveTimeZone() {
         // Arrange
         TimeZoneDTO timeZoneDTO = TimeZoneDTO.builder()
-                .name("Pacific Time")
+                .label("Pacific Time")
                 .city("Los Angeles")
                 .offset("-08:00")
                 .build();
 
         TimeZone timeZoneToSave = TimeZone.builder()
-                .name("Pacific Time")
+                .label("Pacific Time")
                 .city("Los Angeles")
                 .offset("-08:00")
                 .user(mockUser)
@@ -97,7 +97,7 @@ class TimeZoneServiceTest {
         TimeZoneDTO savedTimeZoneDTO = timeZoneService.saveTimeZone(timeZoneDTO, mockUser);
 
         // Assert
-        assertEquals("Pacific Time", savedTimeZoneDTO.getName());
+        assertEquals("Pacific Time", savedTimeZoneDTO.getLabel());
         assertEquals("Los Angeles", savedTimeZoneDTO.getCity());
         assertEquals("-08:00", savedTimeZoneDTO.getOffset());
         verify(timeZoneRepository, times(1)).save(timeZoneToSave);
@@ -114,7 +114,7 @@ class TimeZoneServiceTest {
 
         // Simuler le mappage vers le DTO
         TimeZoneDTO timeZoneDTO = TimeZoneDTO.builder()
-                .name("Pacific Time")
+                .label("Pacific Time")
                 .city("Los Angeles")
                 .offset("-08:00")
                 .build();
@@ -124,7 +124,7 @@ class TimeZoneServiceTest {
         TimeZoneDTO result = timeZoneService.findById(timeZoneId);
 
         // Assert
-        assertEquals("Pacific Time", result.getName());
+        assertEquals("Pacific Time", result.getLabel());
         assertEquals("Los Angeles", result.getCity());
         assertEquals("-08:00", result.getOffset());
         verify(timeZoneRepository, times(1)).findById(timeZoneId);
@@ -153,7 +153,7 @@ class TimeZoneServiceTest {
         Long timeZoneId = 1L;
 
         TimeZoneDTO updatedTimeZoneDTO = TimeZoneDTO.builder()
-                .name("Eastern Time")
+                .label("Eastern Time")
                 .city("New York")
                 .offset("-05:00")
                 .build();
@@ -166,7 +166,7 @@ class TimeZoneServiceTest {
         TimeZoneDTO result = timeZoneService.updateTimeZone(timeZoneId, updatedTimeZoneDTO);
 
         // Assert
-        assertEquals("Eastern Time", result.getName());
+        assertEquals("Eastern Time", result.getLabel());
         assertEquals("New York", result.getCity());
         assertEquals("-05:00", result.getOffset());
         verify(timeZoneRepository, times(1)).save(existingTimeZone);
@@ -201,7 +201,7 @@ class TimeZoneServiceTest {
                 .build();
 
         TimeZone timeZoneOwnedByAnotherUser = TimeZone.builder()
-                .name("Eastern Time")
+                .label("Eastern Time")
                 .user(anotherUser)
                 .offset("+03:00")
                 .build();

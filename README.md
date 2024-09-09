@@ -93,4 +93,30 @@ Des tests unitaires et d'intégration peuvent être exécutés dans le backend a
 mvn test
 ```
 
+## Utilisateurs de test
+
+L'application est livrée avec plusieurs utilisateurs préconfigurés et des fuseaux horaires associés. Ces utilisateurs sont automatiquement ajoutés à la base de données lors du lancement de l'application grâce au **seeder**. Vous pouvez utiliser ces utilisateurs pour tester les différentes fonctionnalités de l'application.
+
+### Liste des utilisateurs de test :
+
+| Nom d'utilisateur | Email                    | Rôle(s)            | Mot de passe | Fuseaux horaires associés                            |
+|-------------------|--------------------------|--------------------|--------------|-----------------------------------------------------|
+| **admin**         | admin@example.com         | ADMIN              | admin        | - UTC (London, +00:00)                              |
+| **user**          | user@example.com          | USER               | user         | - Eastern Time (New York, -05:00) <br> - Central European Time (Paris, +01:00) |
+| **john_doe**      | john.doe@example.com      | USER               | password123  | - Pacific Time (Los Angeles, -08:00) <br> - Mountain Time (Denver, -07:00) <br> - Eastern Time (New York, -05:00) |
+| **jane_doe**      | jane.doe@example.com      | ADMIN, USER        | password456  | - Greenwich Mean Time (London, +00:00) <br> - Central Standard Time (Chicago, -06:00) <br> - China Standard Time (Beijing, +08:00) |
+| **user5**         | user5@example.com         | USER               | password5    | - UTC (London, +00:00) <br> - Central European Time (Berlin, +01:00) <br> - Eastern Time (New York, -05:00) |
+| **user6**         | user6@example.com         | USER               | password6    | - UTC (London, +00:00) <br> - Central European Time (Berlin, +01:00) <br> - Eastern Time (New York, -05:00) |
+| **user7**         | user7@example.com         | USER               | password7    | - UTC (London, +00:00) <br> - Central European Time (Berlin, +01:00) <br> - Eastern Time (New York, -05:00) |
+| **user8**         | user8@example.com         | USER               | password8    | - UTC (London, +00:00) <br> - Central European Time (Berlin, +01:00) <br> - Eastern Time (New York, -05:00) |
+| **user9**         | user9@example.com         | USER               | password9    | - UTC (London, +00:00) <br> - Central European Time (Berlin, +01:00) <br> - Eastern Time (New York, -05:00) |
+| **user10**        | user10@example.com        | USER               | password10   | - UTC (London, +00:00) <br> - Central European Time (Berlin, +01:00) <br> - Eastern Time (New York, -05:00) |
+
+### Utilisation des utilisateurs de test
+
+Vous pouvez utiliser les utilisateurs préconfigurés pour tester l'application :
+
+- **Rôles** : Chaque utilisateur a des rôles spécifiques (ADMIN, USER) qui déterminent l'accès à certaines fonctionnalités de l'application.
+- **Mot de passe** : Chaque utilisateur a un mot de passe correspondant au modèle `password{X}`, où `X` est le numéro de l'utilisateur. Par exemple, `user5` a le mot de passe `password5`.
+- **Fuseaux horaires** : Chaque utilisateur est associé à différents fuseaux horaires, ce qui permet de tester les fonctionnalités de gestion des fuseaux horaires dans l'application.
 
